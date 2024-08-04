@@ -44,7 +44,7 @@ jobs:
       - name: Download GeoLite2-City database
         run: |
           wget -O GeoLite2-City.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${MAXMIND_LICENSE_KEY}&suffix=tar.gz"
-          tar --strip-components=1 -xvzf GeoLite2-City.tar.gz -C $GITHUB_WORKSPACE/app/storage/GeoIP
+          tar --strip-components=1 -xvzf GeoLite2-City.tar.gz -C $GITHUB_WORKSPACE/storage/GeoIP
           rm GeoLite2-City.tar.gz
 
       - name: Build and push Docker image
