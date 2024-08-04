@@ -1,0 +1,11 @@
+.env
+.env.dev
+.env.test
+.DS_Store
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+
+#log files
+**/*.log
+storage/GeoIP

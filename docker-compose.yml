@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: ${APP_NAME}_app
+    volumes:
+      - .:/app
+    ports:
+      - ${APP_PORT}:8000
+      - ${DEBUG_PORT}:${DEBUG_PORT}
+    mem_limit: ${APP_MEMORY_LIMIT}
+    stdin_open: true
+    tty: true
+
+  redis:
+    image: redis:alpine
+    container_name: ${APP_NAME}_redis
+    ports:
+      - ${FORWARD_REDIS_PORT}:6379
+
+  mongo:
+    image: mongo
+    container_name: ${APP_NAME}_mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - ${FORWARD_MONGO_PORT}:27017
+
+  k6:
+    image: grafana/k6
+    container_name: ${APP_NAME}_k6
+    entrypoint: ["sh", "-c", "while true; do sleep 1000; done"] # Mantén el contenedor en ejecución
+    command: ["-"]
+    volumes:
+      - ./docker/k6:/scripts
+    environment:
+      - K6_CLOUD_TOKEN=${K6_CLOUD_TOKEN}
+
+  geoip_data:
+    image: busybox
+    container_name: ${APP_NAME}_geoip_data
+    command: sh -c "wget -O GeoLite2-City.tar.gz 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${MAXMIND_LICENSE_KEY}&suffix=tar.gz' && mkdir -p /app/storage/GeoIP && tar --strip-components=1 -xvzf GeoLite2-City.tar.gz -C /app/storage/GeoIP && rm GeoLite2-City.tar.gz"
+    volumes:
+      - .:/app
+
+volumes:
+  mongo-data:

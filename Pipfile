@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+environs = "*"
+fastapi = "*"
+uvicorn = "*"
+aioredis = "*"
+redis = "*"
+motor = "*"
+sqlalchemy = "*"
+geoip2 = "*"
+user-agents = "*"
+
+[dev-packages]
+hupper = "*"
+debugpy = "*"
+
+[requires]
+python_version = "3.11"
