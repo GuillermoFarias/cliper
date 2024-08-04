@@ -38,11 +38,13 @@ jobs:
           echo "MAXMIND_ACCOUNT_ID=${{ secrets.MAXMIND_ACCOUNT_ID }}" >> $GITHUB_ENV
           echo "MAXMIND_LICENSE_KEY=${{ secrets.MAXMIND_LICENSE_KEY }}" >> $GITHUB_ENV
 
+      - name: List workspace directory
+        run: ls -la $GITHUB_WORKSPACE
+
       - name: Download GeoLite2-City database
         run: |
           wget -O GeoLite2-City.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${MAXMIND_LICENSE_KEY}&suffix=tar.gz"
-          mkdir -p /app/storage/GeoIP
-          tar --strip-components=1 -xvzf GeoLite2-City.tar.gz -C /app/storage/GeoIP
+          tar --strip-components=1 -xvzf GeoLite2-City.tar.gz -C $GITHUB_WORKSPACE/app/storage/GeoIP
           rm GeoLite2-City.tar.gz
 
       - name: Build and push Docker image
