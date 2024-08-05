@@ -2,7 +2,6 @@
 
 from core.facades.env import env, bool_env, int_env
 from app.handler import Handler
-from app.provider import AppProvider
 
 config = {
     # Application URL"""
@@ -31,7 +30,5 @@ config = {
 
     # Application providers
     # they will be registered in the container and booted in the same order
-    "providers": [
-        AppProvider,
-    ]
+    "providers": []
 }

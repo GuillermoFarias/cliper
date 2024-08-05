@@ -32,9 +32,13 @@ class Container(ContainerContract):
         if not self.has(key):
             self.__bindings[key] = instance
 
+    def unwire_all(self):
+        """Unbind all classes from the container."""
+        self.__bindings = {}
+
     def make(self, cls):
         """Obtains an instance from the container."""
-        if isinstance(cls, type):  # cls es una clase
+        if isinstance(cls, type):  
             key = f"{cls.__module__}.{cls.__qualname__}"
             if key in self.__bindings:
                 binding = self.__bindings[key]
@@ -44,7 +48,7 @@ class Container(ContainerContract):
                     return binding
             else:
                 return self.__resolve(cls)
-        else:  # cls es una instancia
+        else:
             key = f"{cls.__class__.__module__}.{cls.__class__.__qualname__}"
             if key in self.__bindings:
                 return self.__bindings[key]
@@ -52,7 +56,6 @@ class Container(ContainerContract):
 
     def __resolve(self, cls):
         """Resolve class dependencies and create an instance."""
-        # Verificar si `cls` es una instancia en lugar de una clase
         if not isinstance(cls, type):
             return cls
 
@@ -75,20 +78,16 @@ class Container(ContainerContract):
 
             params = sig.parameters
 
-            # Preparar argumentos para el constructor de la clase
             args = []
             kwargs = {}
             for param_name, param in params.items():
                 if param_name == 'self':
                     continue
-                # Verificar si el parámetro tiene un valor por defecto
                 if param.default is param.empty:
-                    # Resolver la dependencia
                     dependency_key = f"{param.annotation.__module__}.{param.annotation.__qualname__}"
                     resolved_dependency = self.__resolve(
                         self.__bindings.get(dependency_key, param.annotation)
                     )
-                    # Verificar el tipo de parámetro
                     if param.kind in (param.POSITIONAL_ONLY, param.POSITIONAL_OR_KEYWORD):
                         args.append(resolved_dependency)
                     elif param.kind == param.KEYWORD_ONLY or param.kind == param.POSITIONAL_OR_KEYWORD:
@@ -96,7 +95,6 @@ class Container(ContainerContract):
                 else:
                     kwargs[param_name] = param.default
 
-            # Crear una instancia de la clase
             return cls(*args, **kwargs)
         finally:
             self.__resolving.remove(key)

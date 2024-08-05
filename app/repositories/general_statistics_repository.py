@@ -11,23 +11,20 @@ class GeneralStatisticsRepository:
     def __init__(self, connector: MongoDBConnector):
         """ Constructor """
         self.connector = connector
+        self.repository = MongoDBRepository(self.connector, GeneralStatistics, 'statistics')
 
     async def create(self, model: GeneralStatistics) -> GeneralStatistics:
         """ Create a new model """
-        repository = MongoDBRepository(self.connector, GeneralStatistics, 'statistics')
-        return await repository.create(model)
+        return await self.repository.create(model)
 
     async def get_current(self) -> GeneralStatistics:
         """ Find a model by name """
-        repository = MongoDBRepository(self.connector, GeneralStatistics, 'statistics')
-        return await repository.find_one({'name': STATISTICS_NAME})
+        return await self.repository.find_one({'name': STATISTICS_NAME})
 
     async def create_index(self) -> None:
         """ Create indexes """
-        repository = MongoDBRepository(self.connector, GeneralStatistics, 'statistics')
-        await repository.create_index('short_id')
+        await self.repository.create_index('short_id')
 
     async def update(self, model: GeneralStatistics) -> GeneralStatistics:
         """ Update a model """
-        repository = MongoDBRepository(self.connector, GeneralStatistics, 'statistics')
-        return await repository.update(model.id, model)
+        return await self.repository.update(model.id, model)

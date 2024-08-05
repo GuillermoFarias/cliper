@@ -13,10 +13,13 @@ motor = "*"
 sqlalchemy = "*"
 geoip2 = "*"
 user-agents = "*"
+httpx = "*"
 
 [dev-packages]
 hupper = "*"
 debugpy = "*"
+pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.11"

@@ -11,18 +11,16 @@ class GeneralStatisticsByUrlRepository:
     def __init__(self, connector: MongoDBConnector):
         """ Constructor """
         self.connector = connector
+        self.repository = MongoDBRepository(self.connector, GeneralStatisticsByUrl, 'statistics')
 
     async def create(self, model: GeneralStatisticsByUrl) -> GeneralStatisticsByUrl:
         """ Create a new model """
-        repository = MongoDBRepository(self.connector, GeneralStatisticsByUrl, 'statistics')
-        return await repository.create(model)
+        return await self.repository.create(model)
 
     async def get_by_url_id(self, url_id: str) -> GeneralStatisticsByUrl:
         """ Find a model by name """
-        repository = MongoDBRepository(self.connector, GeneralStatisticsByUrl, 'statistics')
-        return await repository.find_one({'name': STATISTICS_NAME, 'url_id': url_id})
+        return await self.repository.find_one({'name': STATISTICS_NAME, 'url_id': url_id})
 
     async def update(self, model: GeneralStatisticsByUrl) -> GeneralStatisticsByUrl:
         """ Update a model """
-        repository = MongoDBRepository(self.connector, GeneralStatisticsByUrl, 'statistics')
-        return await repository.update(model.id, model)
+        return await self.repository.update(model.id, model)

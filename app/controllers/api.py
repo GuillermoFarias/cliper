@@ -114,4 +114,5 @@ class ApiController:
     async def get_general_stats(self, request: Request):
         """ Get general stats """
         general_stats: GeneralStatistics = await self.stats_repository.get_current()
+
         return {'data': general_stats.data}

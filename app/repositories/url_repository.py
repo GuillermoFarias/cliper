@@ -10,23 +10,20 @@ class UrlRepository:
     def __init__(self, connector: MongoDBConnector):
         """ Constructor """
         self.connector = connector
+        self.repository = MongoDBRepository(self.connector, Url, 'urls')
 
     async def create(self, url: Url) -> Url:
         """ Create a new URL """
-        repository = MongoDBRepository(self.connector, Url, 'urls')
-        return await repository.create(url)
+        return await self.repository.create(url)
 
     async def find_by_short_id(self, short_id: str) -> Url:
         """ Find a URL by short URL """
-        repository = MongoDBRepository(self.connector, Url, 'urls')
-        return await repository.find_one({'short_id': short_id})
+        return await self.repository.find_one({'short_id': short_id})
 
     async def create_index(self) -> None:
         """ Create indexes """
-        repository = MongoDBRepository(self.connector, Url, 'urls')
-        await repository.create_index('short_id')
+        await self.repository.create_index('short_id')
 
     async def delete(self, url: Url) -> None:
         """ Delete a URL """
-        repository = MongoDBRepository(self.connector, Url, 'urls')
-        await repository.delete(url.id)
+        await self.repository.delete(url.id)

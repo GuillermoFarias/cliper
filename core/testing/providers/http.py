@@ -2,7 +2,6 @@
 import importlib.util
 import os
 
-from fastapi import FastAPI
 from core.contracts.provider import Provider
 from core.container import Container
 from core.facades.config import config
@@ -14,16 +13,11 @@ from app.handler import Handler
 class HttpProvider(Provider):
     """ Http provider. """
 
-    def __init__(self):
-        """ Constructor """
-        self.api = FastAPI()
-
     def register(self, container: Container) -> None:
         """Method to register dependencies."""
 
         http_router = Router()
         container.singleton(Router, http_router)
-        container.singleton(FastAPI, self.api)
 
         http_config = config('http', 'config', {})
         routers = http_config.get('routers', [])
@@ -53,4 +47,4 @@ class HttpProvider(Provider):
         server.register_validation_exception_handler(Handler().handle_api_validation_exception)
 
         server.add_router(http_router.get_router())
-        server.start_server(api=self.api)
+        server.start_server()

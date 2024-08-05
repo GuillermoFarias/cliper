@@ -2,6 +2,7 @@
 from typing import Callable
 import asyncio
 from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 import uvicorn
 
@@ -30,9 +31,15 @@ class Server:
         """Register a validation exception handler for the server."""
         self.validation_exception_handler = handler
 
-    def start_server(self):
+    def start_server(self, api: FastAPI = None):
         """Start the server."""
-        api = FastAPI()
+        api.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
         for router in self.routers:
             api.include_router(router)
 

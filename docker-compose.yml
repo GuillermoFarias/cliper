@@ -40,7 +40,15 @@ services:
   geoip_data:
     image: busybox
     container_name: ${APP_NAME}_geoip_data
-    command: sh -c "wget -O GeoLite2-City.tar.gz 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${MAXMIND_LICENSE_KEY}&suffix=tar.gz' && mkdir -p /app/storage/GeoIP && tar --strip-components=1 -xvzf GeoLite2-City.tar.gz -C /app/storage/GeoIP && rm GeoLite2-City.tar.gz"
+    command: |
+      sh -c "if [ -z \"$(find /app/storage/GeoIP -maxdepth 0 -empty)\" ]; then \
+              echo 'Directory not empty, skipping download.'; \
+           else \
+              wget -O GeoLite2-City.tar.gz 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=${MAXMIND_LICENSE_KEY}&suffix=tar.gz' && \
+              mkdir -p /app/storage/GeoIP && \
+              tar --strip-components=1 -xvzf GeoLite2-City.tar.gz -C /app/storage/GeoIP && \
+              rm GeoLite2-City.tar.gz; \
+           fi"
     volumes:
       - .:/app
 
