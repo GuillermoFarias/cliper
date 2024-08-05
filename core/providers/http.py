@@ -16,7 +16,11 @@ class HttpProvider(Provider):
 
     def __init__(self):
         """ Constructor """
-        self.api = FastAPI()
+        self.api = FastAPI(
+            title="Cliper API",
+            description="API for Cliper URL shortener",
+            version="1.0.0",
+        )
 
     def register(self, container: Container) -> None:
         """Method to register dependencies."""
