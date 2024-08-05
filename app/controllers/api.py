@@ -39,14 +39,12 @@ class ApiController:
         """ Ping route for the API. """
         return {'data': 'pong'}
 
-    async def create_url(self, request: Request):
+    async def create_url(self, request: Request, url: URLCreate):
         """ Index route for the API. """
         base_url = get_app_url()
-        data = await request.json()
-        # short_url_id = ''.join(random.choices(string.ascii_letters, k=8))
-        # await self.async_task(CreateNewUrl.dispatch_async, {'url': url.url, 'short_id': short_url_id})
-        # return {'url': url.url, 'short_url': f'{base_url}/{short_url_id}'}
-        return {'data': data}
+        short_url_id = ''.join(random.choices(string.ascii_letters, k=8))
+        await self.async_task(CreateNewUrl.dispatch_async, {'url': url.url, 'short_id': short_url_id})
+        return {'url': url.url, 'short_url': f'{base_url}/{short_url_id}'}
 
     async def get_url(self, request: Request, short_url: str):
         """ Get URL by short URL """
@@ -116,7 +114,7 @@ class ApiController:
 
         return {'data': general_stats.data}
 
-    async def async_task(self, function: Callable, *args) -> None:
+    async def async_task(function: Callable, *args) -> None:
         """
         Run async tasks.
         Receive the function and the arguments to run the async task.
