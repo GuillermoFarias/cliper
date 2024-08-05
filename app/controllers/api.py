@@ -2,8 +2,6 @@
 import time
 import random
 import string
-import asyncio
-from typing import Callable
 from fastapi import Request, HTTPException
 from fastapi.responses import RedirectResponse
 from fastapi.responses import JSONResponse
@@ -43,7 +41,7 @@ class ApiController:
         """ Index route for the API. """
         base_url = get_app_url()
         short_url_id = ''.join(random.choices(string.ascii_letters, k=8))
-        await self.async_task(CreateNewUrl.dispatch_async, {'url': url.url, 'short_id': short_url_id})
+        await CreateNewUrl.dispatch_async({'url': url.url, 'short_id': short_url_id})
         return {'url': url.url, 'short_url': f'{base_url}/{short_url_id}'}
 
     async def get_url(self, request: Request, short_url: str):
@@ -113,12 +111,3 @@ class ApiController:
         general_stats: GeneralStatistics = await self.stats_repository.get_current()
 
         return {'data': general_stats.data}
-
-    async def async_task(function: Callable, *args) -> None:
-        """
-        Run async tasks.
-        Receive the function and the arguments to run the async task.
-        This helper must be awaited.
-        """
-        loop = asyncio.get_event_loop()
-        loop.create_task(function(*args))
