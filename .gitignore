@@ -12,6 +12,3 @@
 #test
 .coverage
 htmlcov/
-
-#geoipdata
-/storage/GeoIP/*

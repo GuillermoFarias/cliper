@@ -1,0 +1,3 @@
+# all, except GeoIP/data.txt
+*
+!GeoIP/data.txt
