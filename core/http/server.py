@@ -40,6 +40,7 @@ class Server:
             allow_methods=["*"],
             allow_headers=["*"],
         )
+
         for router in self.routers:
             api.include_router(router)
 
