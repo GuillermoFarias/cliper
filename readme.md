@@ -1,4 +1,4 @@
-# Cliper
+# <img src="https://github.com/user-attachments/assets/7151506b-1782-44b3-a6d7-317c29d7005d" alt="image" width="50" align="left"> Cliper
 
 ## Cut all, share better
 
