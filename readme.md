@@ -7,7 +7,7 @@
 
 Demo: [https://cliper-app.gfarias.cl](https://cliper-app.gfarias.cl)
 
-Cliper es una aplicación desarrollada en Python que permite acortar URLs y compartirlas de manera eficiente.
+Cliper es una aplicación desarrollada en Python que permite acortar URLs y compartirlas de manera eficiente. Usa redis como caché, Mongo como base de datos y los ID's los genera el backend antes de registrar en la BD para acortar los tiempos de respuesta.
 
 ## Tecnologías utilizadas
 
