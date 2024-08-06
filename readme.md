@@ -31,11 +31,10 @@ Para levantar la aplicación en tu entorno local, sigue estos pasos:
    ```
 
 2. **Levantar la aplicación con Docker Compose**
-
-Ejecuta el siguiente comando para levantar los servicios definidos en el archivo `docker-compose.yml`
-```
-docker-compose up -d
-```
+   Ejecuta el siguiente comando para levantar los servicios definidos en el archivo `docker-compose.yml`
+   ```
+   docker-compose up -d
+   ```
 
 ## Producción
 Para instrucciones sobre cómo desplegar Cliper en un entorno de producción, por favor, revisa el [pipeline de despliegue.](./.github/workflows/deploy.yml)
