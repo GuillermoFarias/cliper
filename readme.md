@@ -1,4 +1,5 @@
 # <img src="https://github.com/user-attachments/assets/7151506b-1782-44b3-a6d7-317c29d7005d" alt="image" width="50" align="left"> Cliper
+[![Build, Push and Deploy to Kubernetes](https://github.com/GuillermoFarias/cliper/actions/workflows/deploy.yml/badge.svg)](https://github.com/GuillermoFarias/cliper/actions/workflows/deploy.yml)
 
 ## Cut all, share better
 
