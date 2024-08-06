@@ -1,22 +1,31 @@
 # Cliper
 
-## acortador de urls para demo
+## Cut all, share better
 
-## tecnologías
+### More than demo, a functional app
 
-1. python 3.11
-   1.1 Fastapi + uvicorn
-1. mongodb
-1. redis
+Demo: [https://cliper-app.gfarias.cl](https://cliper-app.gfarias.cl)
 
-## Despliegue local
+Cliper es una aplicación desarrollada en Python que permite acortar URLs y compartirlas de manera eficiente.
 
-### variables de entorno
+## Tecnologías utilizadas
 
-```
-cp .env.example .env
-```
+- **Backend**: FastAPI
+- **Cache**: Redis
+- **Base de Datos**: MongoDB
 
-Se debe agregar la variables de GeoIP `MAXMIND_LICENSE_KEY` si quieres la geolocalización de ips
-Se debe agregar la variables de K6 `K6_CLOUD_TOKEN` si quieres probar en K6cloud los tiempos de respuesta
+## Documentación
 
+- **Colección de Postman**: Encuentra la colección [aquí](./api-collection.json)
+- **Documentación completa**: [Notion Documentation](enlace-a-la-documentacion-en-notion)
+
+## Configuración local
+
+Para levantar la aplicación en tu entorno local, sigue estos pasos:
+
+1. **Copiar archivo de configuración**:
+   Copia el archivo `.env` a `.env.example` y configura las variables de entorno según sea necesario.
+
+   ```bash
+   cp .env .env.example
+   ```
