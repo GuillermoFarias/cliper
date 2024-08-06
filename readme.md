@@ -14,10 +14,14 @@ Cliper es una aplicación desarrollada en Python que permite acortar URLs y comp
 - **Cache**: Redis
 - **Base de Datos**: MongoDB
 
+## Repos de interés
+- **Front**: https://github.com/GuillermoFarias/cliper-front
+- **Infra**: https://github.com/GuillermoFarias/cliper-infra
+
 ## Documentación
 
 - **Colección de Postman**: Encuentra la colección [aquí](./api-collection.json)
-- **Documentación completa**: [Notion Documentation](enlace-a-la-documentacion-en-notion)
+- **Documentación completa**: [Notion Documentation](https://www.notion.so/Cliper-f42e6b2de7aa4e719ecda753d560d38c?pvs=4)
 
 ## Configuración local
 
